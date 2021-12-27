@@ -12,7 +12,6 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
-
 // https://github.com/noraj/haiti/blob/master/data/prototypes.json
 //go:embed prototypes.json
 var prototypes string
@@ -20,9 +19,9 @@ var prototypes string
 type Mode struct {
 	Regex string `json:"regex"`
 	Modes []struct {
-		John     interface{} `json:"john"`
-		Hashcat  int         `json:"hashcat"`
-		Name     string      `json:"name"`
+		John    interface{} `json:"john"`
+		Hashcat int         `json:"hashcat"`
+		Name    string      `json:"name"`
 	} `json:"modes"`
 
 	RegexProcessed *regexp.Regexp
@@ -72,7 +71,6 @@ func prepareModes() Modes {
 	return modes
 }
 
-
 func processCommand(update tgbotapi.Update) tgbotapi.MessageConfig {
 	msg := tgbotapi.NewMessage(update.Message.Chat.ID, "")
 
@@ -97,10 +95,8 @@ func processHashRequest(modes Modes, update tgbotapi.Update) tgbotapi.MessageCon
 	return msg
 }
 
-
 func main() {
 	token := os.Getenv("TELEGRAM_TOKEN")
-	log.Println(token)
 
 	modes := prepareModes()
 	bot, err := tgbotapi.NewBotAPI(token)
