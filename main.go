@@ -95,6 +95,20 @@ func processHashRequest(modes Modes, update tgbotapi.Update) tgbotapi.MessageCon
 	return msg
 }
 
+func processUpdate(update tgbotapi.Update, modes Modes, bot *tgbotapi.BotAPI) {
+	if update.Message == nil {
+		return
+	}
+
+	if update.Message.IsCommand() {
+		msg := processCommand(update)
+		bot.Send(msg)
+	} else {
+		msg := processHashRequest(modes, update)
+		bot.Send(msg)
+	}
+}
+
 func main() {
 	token := os.Getenv("TELEGRAM_TOKEN")
 
@@ -114,16 +128,6 @@ func main() {
 	updates := bot.GetUpdatesChan(u)
 
 	for update := range updates {
-		if update.Message == nil {
-			continue
-		}
-
-		if update.Message.IsCommand() {
-			msg := processCommand(update)
-			bot.Send(msg)
-		} else {
-			msg := processHashRequest(modes, update)
-			bot.Send(msg)
-		}
+		go processUpdate(update, modes, bot)
 	}
 }

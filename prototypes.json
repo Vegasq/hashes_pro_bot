@@ -3147,28 +3147,6 @@
         ]
     },
     {
-        "regex": "^[a-f0-9]{4,}$",
-        "modes": [
-            {
-                "john": null,
-                "hashcat": null,
-                "extended": true,
-                "name": "Cisco Type 7"
-            }
-        ]
-    },
-    {
-        "regex": "^[a-z0-9\\/.]{13,}$",
-        "modes": [
-            {
-                "john": "bigcrypt",
-                "hashcat": null,
-                "extended": true,
-                "name": "BigCrypt"
-            }
-        ]
-    },
-    {
         "regex": "^(\\$cisco4\\$)?[a-z0-9\\/.]{43}$",
         "modes": [
             {
